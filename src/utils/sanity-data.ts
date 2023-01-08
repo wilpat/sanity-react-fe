@@ -1,0 +1,1 @@
+export const userQuery = (userId: string) => `*[_type == 'user' && _id == '${userId}']`

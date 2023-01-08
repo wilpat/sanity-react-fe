@@ -1,24 +1,31 @@
 import shareVideo from '../assets/share.mp4'
 import logo from '../assets/logowhite.png'
 import { GoogleLogin } from '@react-oauth/google'
-// import { useNavigate } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 import jwt_decode from 'jwt-decode'
+import { client } from '../client'
+import { User } from '../utils/interfaces'
 
 export const Login = () => {
+  const navigate = useNavigate()
 
   const createOrGetUser = (response: any) => {
     const decoded:  { name: string, picture: string, sub: string, email: string } = jwt_decode(response.credential)
  
 
     const { name, picture, sub, email } = decoded
-    const user = {
+    const user: User = {
       _id: sub,
       _type: 'user',
       userName: name,
       email,
       image: picture
     }
-    localStorage.setItem('user', JSON.stringify(user));
+
+    client.createIfNotExists(user).then(() => {
+      localStorage.setItem('user', JSON.stringify(user));
+      navigate('/', { replace: true })
+    })
   }
 
   return (

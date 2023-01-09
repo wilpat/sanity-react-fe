@@ -1,6 +1,7 @@
 import React from 'react'
+import { SideBarProps } from '../components/SideBar'
 
-const Pin = () => {
+const Pin = (props: SideBarProps) => {
   return (
     <div>Pin</div>
   )

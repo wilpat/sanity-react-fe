@@ -14,6 +14,7 @@ export const Home = () => {
 
   const [toggleSidebar, setToggleSidebar] = useState(false)
   const [user, setUser] = useState<null | User>(null)
+  const scrollRef = useRef<HTMLDivElement | null>(null)
 
   const userInfo = localStorage.getItem('user') ? JSON.parse(`${localStorage.getItem('user')}`) : localStorage.clear()
 
@@ -27,11 +28,15 @@ export const Home = () => {
       console.log(error)
     }
   }, [])
+
+  useEffect(() => {
+    scrollRef.current?.scrollTo(0, 0)
+  }, [])
   
   return (
     <div className="flex bg-gray-50 md:flex-row flex-col h-screen transition-height duration-75 ease-out">
       <div className="hidden md:flex h-screen flex-initial">
-        <SideBar />
+        <SideBar user = {user && user}/>
       </div>
       <div className="flex md:hidden flex-row">
         <HiMenu fontSize={40} className="cursor-pointer" onClick={() => setToggleSidebar(true)} />
@@ -39,7 +44,7 @@ export const Home = () => {
           <img src={logo} alt="Logo" className="w-28"/>
         </Link>
         <Link to={`user-profile/${user?._id}`}>
-          <img src={user?.image} alt="Logo" className="w-28"/>
+          <img src={user?.image} alt="UserImage" className="w-28"/>
         </Link>
       </div>
       {
@@ -48,9 +53,16 @@ export const Home = () => {
             <div className="absolute w-full flex justify-end items-center p-2">
               <AiFillCloseCircle fontSize={30} className='cursor-pointer' onClick = {() => setToggleSidebar(false)} />
             </div>
+            <SideBar user = {user && user} closeToggle={setToggleSidebar} ref={scrollRef}/>
           </div>
         )
       }
+      <div className="pb-2 flex-1 h-screen overflow-y-scroll">
+        <Routes>
+          <Route path="/user-profile/:userId" element={<UserProfile />}></Route>
+          <Route path="/*" element={<Pin user = {user && user} />} ></Route>
+        </Routes>
+      </div>
     </div>
   )
 }

@@ -1,16 +1,15 @@
-import React, { Dispatch, MutableRefObject, SetStateAction } from 'react'
+import { Dispatch, forwardRef, SetStateAction } from 'react'
 import { User } from '../utils/interfaces'
 
 export interface SideBarProps {
   user: User | null
   closeToggle?: Dispatch<SetStateAction<boolean>>
-  ref?: MutableRefObject<HTMLDivElement | null>
 }
 
-const SideBar = (props: SideBarProps) => {
+const SideBar = forwardRef((props: SideBarProps, ref) => {
   return (
     <div>SideBar</div>
   )
-}
+})
 
 export default SideBar

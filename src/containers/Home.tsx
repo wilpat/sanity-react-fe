@@ -4,7 +4,7 @@ import { HiMenu } from 'react-icons/hi'
 import { AiFillCloseCircle } from 'react-icons/ai'
 
 import { SideBar, UserProfile } from "../components"
-import Pin from "./Pin"
+import Pins from "./Pins"
 import { client } from "../client"
 import logo from '../assets/logo.png'
 import { userQuery } from '../utils/sanity-data';
@@ -62,7 +62,7 @@ export const Home = () => {
       <div className="pb-2 flex-1 h-screen">
         <Routes>
           <Route path="/user-profile/:userId" element={<UserProfile />}></Route>
-          <Route path="/*" element={<Pin user = {user && user} />} ></Route>
+          <Route path="/*" element={<Pins user = {user && user} />} ></Route>
         </Routes>
       </div>
     </div>

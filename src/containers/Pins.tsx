@@ -1,10 +1,10 @@
 import React from 'react'
 import { SideBarProps } from '../components/SideBar'
 
-const Pin = (props: SideBarProps) => {
+const Pins = (props: SideBarProps) => {
   return (
-    <div>Pin</div>
+    <div>Pins</div>
   )
 }
 
-export default Pin
+export default Pins
